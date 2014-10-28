@@ -1,8 +1,9 @@
+ruby '2.1.0'
+
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.5'
 gem 'turbolinks'
-gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -14,6 +15,10 @@ gem 'bcrypt-ruby', '3.1.2'
 gem 'bootstrap-sass'
 gem 'bootstrap-sass-extras'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
+
+group :development do
+  gem 'sqlite3'
+end
 
 group :test, :development do
   #gem 'factory_girl_rails'
@@ -41,4 +46,9 @@ group :test do
   gem 'timecop'
   gem 'webmock',            :require => nil
   gem 'minitest-matchers'
+end
+
+group :production do
+  gem 'pg', '0.15.1'
+  gem 'rails_12factor', '0.0.2'
 end
