@@ -27,3 +27,6 @@ en:
     subcategories:
       index: 'Підкатегорії'
       new: 'Створити підкатегорію'
+    profiles:
+      index: 'Профілі'
+      new: 'Створити профіль'

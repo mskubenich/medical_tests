@@ -3,6 +3,7 @@ class ProfilesController < ApplicationController
   load_and_authorize_resource :subcategory
   load_and_authorize_resource :profile, only: [:show, :edit, :update, :destroy]
 
+  before_action :add_breadcrumbs
   # GET /profiles
   # GET /profiles.json
   def index
@@ -16,15 +17,18 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
   end
 
   # GET /profiles/new
   def new
+    add_breadcrumb :new, nil
     @profile = @subcategory.profiles.build
   end
 
   # GET /profiles/1/edit
   def edit
+    add_breadcrumb "Редагувати #{ @profile.title }", nil
   end
 
   # POST /profiles
@@ -66,6 +70,14 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def add_breadcrumbs
+    add_breadcrumb t('breadcrumbs.categories.index'), :categories_path
+    add_breadcrumb @category.title, category_path(@category)
+    add_breadcrumb t('breadcrumbs.subcategories.index'), category_subcategories_path(@category)
+    add_breadcrumb @subcategory.title, category_subcategory_path(@category, @subcategory)
+    add_breadcrumb :index, category_subcategory_profiles_path(@category, @subcategory)
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params

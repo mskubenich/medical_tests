@@ -1,15 +1,5 @@
 = form_for [@category, @subcategory, @profile], :html => { :class => 'form-horizontal' } do |f|
-  .form-group
-    = f.label :category, :class => 'control-label col-md-2'
-    .col-md-10
-      %h3
-        = @category.title
-  .form-group
-    = f.label :subcategory, :class => 'control-label col-md-2'
-    .col-md-10
-      %h3
-        = @subcategory.title
-      = f.hidden_field :subcategory_id, :class => 'text_field form-control'
+  = f.hidden_field :subcategory_id, :class => 'text_field form-control'
   .form-group
     = f.label :title, :class => 'control-label col-md-2'
     .col-md-10
