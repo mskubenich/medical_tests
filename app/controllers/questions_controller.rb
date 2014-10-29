@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = @profile.build
+    @question = @profile.questions.build
   end
 
   # GET /questions/1/edit

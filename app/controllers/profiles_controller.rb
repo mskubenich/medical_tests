@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = @subcategory.profiles
   end
 
   # GET /profiles/1
@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/new
   def new
-    @profile = Profile.new
+    @profile = @subcategory.profiles.build
   end
 
   # GET /profiles/1/edit
