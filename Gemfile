@@ -15,6 +15,7 @@ gem 'bcrypt-ruby', '3.1.2'
 gem 'bootstrap-sass'
 gem 'bootstrap-sass-extras'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
+gem 'cancancan'
 
 group :development do
   gem 'sqlite3'

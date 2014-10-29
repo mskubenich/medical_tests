@@ -4,15 +4,14 @@
 %table.table.table-striped
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:title)
       %th= model_class.human_attribute_name(:created_at)
       %th=t '.actions', :default => t("helpers.actions")
   %tbody
     - @categories.each do |category|
       %tr
-        %td= category.id
-        %td= category.title
+        %td
+          = link_to category.title, category_subcategories_path(category)
         %td=l category.created_at, format: :long
         %td
           = link_to category_path(category), :class => 'btn btn-xs', :title => "#{ t('.show', :default => t('helpers.links.show')) }" do
