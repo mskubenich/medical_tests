@@ -7,6 +7,10 @@ class CategoriesController < ApplicationController
     @categories = Category.all
   end
 
+  def list
+    @categories = Category.all
+  end
+
   # GET /categories/1
   # GET /categories/1.json
   def show

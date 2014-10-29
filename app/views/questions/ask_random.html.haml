@@ -1,0 +1,13 @@
+%h4
+  = @question.text
+%table{ style: 'width: 100%'}
+  %tbody
+    - @question.answers.shuffle.each do |answer|
+      %tr
+        %td
+          %h5
+            %a.btn.btn-outline-inverse.btn-lg{ href: '#', style: 'border-color: gray; width: 100%; text-align: left'}
+              = answer.text
+              - if answer.correct
+                %i.glyphicon.glyphicon-ok
+= link_to 'Next', ask_random_category_subcategory_profile_questions_path(@category, @subcategory, @profile), class: 'btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: black'

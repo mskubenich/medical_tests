@@ -1,0 +1,16 @@
+.page-header
+  %h1
+    Subcategories
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+        Title
+      %th
+        Description
+  %tbody
+    - @subcategories.each do |subcategory|
+      %tr
+        %td
+          = link_to subcategory.title, list_category_subcategory_profiles_path(@category, subcategory)
+        %td= subcategory.description

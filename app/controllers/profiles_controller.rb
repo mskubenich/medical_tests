@@ -9,6 +9,10 @@ class ProfilesController < ApplicationController
     @profiles = @subcategory.profiles
   end
 
+  def list
+    @profiles = @subcategory.profiles
+  end
+
   # GET /profiles/1
   # GET /profiles/1.json
   def show

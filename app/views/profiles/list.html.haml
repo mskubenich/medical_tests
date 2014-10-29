@@ -1,0 +1,14 @@
+- model_class = Profile
+.page-header
+  %h1
+    Profiles
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+        Title
+  %tbody
+    - @profiles.each do |profile|
+      %tr
+        %td
+          = link_to profile.title, ask_random_category_subcategory_profile_questions_path(@category, @subcategory, profile)

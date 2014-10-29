@@ -1,0 +1,13 @@
+.page-header
+  %h1
+    Categories
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+        Title
+  %tbody
+    - @categories.each do |category|
+      %tr
+        %td
+          = link_to category.title, list_category_subcategories_path(category)

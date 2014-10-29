@@ -15,6 +15,10 @@ class QuestionsController < ApplicationController
   def show
   end
 
+  def ask_random
+    @question = Question.limit(1).order("RANDOM()").first
+  end
+
   # GET /questions/new
   def new
     @question = @profile.questions.build
