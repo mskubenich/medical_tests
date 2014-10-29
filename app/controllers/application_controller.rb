@@ -10,4 +10,6 @@ class ApplicationController < ActionController::Base
   def current_user
 
   end
+
+  #add_breadcrumb :index, :root_path
 end

@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   load_and_authorize_resource :category, only: [:show, :edit, :update, :destroy]
+  add_breadcrumb :index, :categories_path
 
   # GET /categories
   # GET /categories.json
@@ -14,15 +15,18 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    add_breadcrumb @category.title, category_path(@category)
   end
 
   # GET /categories/new
   def new
+    add_breadcrumb :new, nil
     @category = Category.new
   end
 
   # GET /categories/1/edit
   def edit
+    add_breadcrumb "Редагувати #{ @category.title }", nil
   end
 
   # POST /categories
