@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :categories do
     resources :subcategories do
       resources :profiles do
-        resources :questions
+        resources :questions do
+          collection do
+            post :upload_file
+          end
+        end
       end
     end
   end

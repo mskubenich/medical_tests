@@ -4,16 +4,12 @@
 %table.table.table-striped
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:profile_id)
       %th= model_class.human_attribute_name(:text)
       %th= model_class.human_attribute_name(:created_at)
       %th=t '.actions', :default => t("helpers.actions")
   %tbody
     - @questions.each do |question|
       %tr
-        %td= question.id
-        %td= question.profile_id
         %td= question.text
         %td=l question.created_at, format: :long
         %td
@@ -25,3 +21,17 @@
             = glyph 'remove'
 
 = link_to t('.new', :default => t("helpers.links.new")), new_category_subcategory_profile_question_path(@category, @subcategory, @profile), :class => 'btn btn-primary'
+
+%hr
+
+= form_tag upload_file_category_subcategory_profile_questions_path(@category, @subcategory, @profile), method: 'post', class: 'form-horizontal', multipart: true do
+  = hidden_field_tag :profile_id, :class => 'text_field form-control'
+  .form-group
+    = label_tag :text, nil, :class => 'control-label col-md-2'
+    .col-md-10
+      = file_field_tag :questions_file, :class => 'text_field form-control'
+  .form-group
+    .col-md-offset-2.col-md-10
+      = submit_tag nil, :class => 'btn btn-primary'
+
+

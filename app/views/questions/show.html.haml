@@ -8,8 +8,24 @@
     %dd
       %pre.prettyprint= @question.text
 
-- @question.answers.each do |answer|
-  = render partial: 'answer_form', locals: { answer: answer }
+%table.table
+  %thead
+    %tr
+      %th
+      %th
+        Text
+      %th
+        Correct
+  %tbody
+    - @question.answers.each_with_index do |answer, index|
+      %tr
+        %td
+          = index + 1
+        %td
+          = answer.text
+        %td
+          - if answer.correct
+            %i.glyphicon.glyphicon-ok
 
 .form-group
   = link_to t('.back', :default => t("helpers.links.back")), category_subcategory_profile_questions_path(@category, @subcategory, @profile), :class => 'btn btn-default'
