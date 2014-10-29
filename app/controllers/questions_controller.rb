@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = @profile.questions
+    @questions = @profile.questions.paginate(:page => params[:page], per_page: 10).order('created_at DESC')
   end
 
   # GET /questions/1

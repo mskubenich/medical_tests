@@ -1,6 +1,13 @@
 - model_class = Question
 .page-header
   %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+= link_to t('.new', :default => t("helpers.links.new")), new_category_subcategory_profile_question_path(@category, @subcategory, @profile), :class => 'btn btn-primary'
+
+.row
+  .col-md-12.text-right
+    = will_paginate @questions, renderer: BootstrapPagination::Rails
+
 %table.table.table-striped
   %thead
     %tr
@@ -20,4 +27,6 @@
           = link_to category_subcategory_profile_question_path(@category, @subcategory, @profile, question), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs', :title => "#{ t('.destroy', :default => t('helpers.links.destroy')) }"  do
             = glyph 'remove'
 
-= link_to t('.new', :default => t("helpers.links.new")), new_category_subcategory_profile_question_path(@category, @subcategory, @profile), :class => 'btn btn-primary'
+.row
+  .col-md-12.text-right
+    = will_paginate @questions, renderer: BootstrapPagination::Rails
