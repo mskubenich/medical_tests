@@ -1,0 +1,25 @@
+= form_for [@category, @subcategory, @profile, @question], :html => { :class => 'form-horizontal' } do |f|
+  .form-group
+    = f.label :category, :class => 'control-label col-md-2'
+    .col-md-10
+      %h3
+        = @category.title
+  .form-group
+    = f.label :subcategory, :class => 'control-label col-md-2'
+    .col-md-10
+      %h3
+        = @subcategory.title
+  .form-group
+    = f.label :profile, :class => 'control-label col-md-2'
+    .col-md-10
+      %h3
+        = @profile.title
+      = f.hidden_field :profile_id, :class => 'text_field form-control'
+  .form-group
+    = f.label :text, :class => 'control-label col-md-2'
+    .col-md-10
+      = f.text_area :text, :class => 'text_field form-control'
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit nil, :class => 'btn btn-primary'
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), category_subcategory_profile_questions_path, :class => 'btn btn-default'

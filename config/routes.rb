@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   resources :categories do
     resources :subcategories do
-      resources :profiles
+      resources :profiles do
+        resources :questions
+      end
     end
   end
 

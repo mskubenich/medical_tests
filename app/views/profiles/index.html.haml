@@ -4,15 +4,14 @@
 %table.table.table-striped
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:title)
       %th= model_class.human_attribute_name(:created_at)
       %th=t '.actions', :default => t("helpers.actions")
   %tbody
     - @profiles.each do |profile|
       %tr
-        %td= profile.id
-        %td= profile.title
+        %td
+          = link_to profile.title, category_subcategory_profile_questions_path(@category, @subcategory, profile)
         %td=l profile.created_at, format: :long
         %td
           = link_to category_subcategory_profile_path(@category, @subcategory, profile), :class => 'btn btn-xs', :title => "#{ t('.show', :default => t('helpers.links.show')) }" do
