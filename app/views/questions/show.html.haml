@@ -8,6 +8,9 @@
     %dd
       %pre.prettyprint= @question.text
 
+- @question.answers.each do |answer|
+  = render partial: 'answer_form', locals: { answer: answer }
+
 .form-group
   = link_to t('.back', :default => t("helpers.links.back")), category_subcategory_profile_questions_path(@category, @subcategory, @profile), :class => 'btn btn-default'
   = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_subcategory_profile_question_path(@category, @subcategory, @profile, @question), :class => 'btn btn-default'
