@@ -17,7 +17,12 @@
   %tbody
     - @questions.each do |question|
       %tr
-        %td= question.text
+        %td
+          = question.text
+          - question.answers.shuffle.each do |answer|
+            %br
+            %span.label{ class: "#{ answer.correct ? 'label-success' : 'label-primary'}"}
+              = answer.text
         %td=l question.created_at, format: :long
         %td
           = link_to category_subcategory_profile_question_path(@category, @subcategory, @profile, question), :class => 'btn btn-xs', :title => "#{ t('.show', :default => t('helpers.links.show')) }" do
