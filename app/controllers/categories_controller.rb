@@ -68,8 +68,8 @@ class CategoriesController < ApplicationController
   def upload_file
     data = YAML.load(params[:questions_file].read).with_indifferent_access
 
-    category = Category.create title: data[:category][:title]
-    subcategory = Subcategory.create title: data[:category][:subcategory][:title], category_id: category.id
+    category = Category.where(title: data[:category][:title]).first_or_create
+    subcategory = Subcategory.where(title: data[:category][:subcategory][:title], category_id: category.id).first_or_create
     profile = Profile.create title: data[:category][:subcategory][:profile][:title], subcategory_id: subcategory.id
 
     data[:category][:subcategory][:profile][:questions].each do |question_hash|
