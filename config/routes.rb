@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :categories do
     collection do
       get :list
+      post :upload_file
     end
     resources :subcategories do
       collection do
@@ -17,7 +18,6 @@ Rails.application.routes.draw do
         resources :questions do
           collection do
             get :ask_random
-            post :upload_file
           end
         end
       end

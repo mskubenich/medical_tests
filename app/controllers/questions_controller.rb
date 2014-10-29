@@ -66,23 +66,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def upload_file
-    data = YAML.load(params[:questions_file].read).with_indifferent_access
-
-    category = Category.create title: data[:category][:title]
-    subcategory = Subcategory.create title: data[:category][:subcategory][:title], category_id: category.id
-    profile = Profile.create title: data[:category][:subcategory][:profile][:title], subcategory_id: subcategory.id
-
-    data[:category][:subcategory][:profile][:questions].each do |question_hash|
-      question = Question.create profile_id: profile.id, text: question_hash[:text]
-      question_hash[:answers].each_with_index do |answer, index|
-        Answer.create text: answer[1], question_id: question.id, correct: (index == 0 )
-      end
-    end
-
-    redirect_to category_subcategory_profile_questions_path(category, subcategory, profile), notice: "Questions was successfully added."
-  end
-
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
