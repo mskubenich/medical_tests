@@ -69,10 +69,10 @@ class QuestionsController < ApplicationController
     subcategory = Subcategory.create title: data[:category][:subcategory][:title], category_id: category.id
     profile = Profile.create title: data[:category][:subcategory][:profile][:title], subcategory_id: subcategory.id
 
-    data[:category][:subcategory][:profile][:questions].each do |number, question_hash|
+    data[:category][:subcategory][:profile][:questions].each do |question_hash|
       question = Question.create profile_id: profile.id, text: question_hash[:text]
-      question_hash[:answers].each do |number, answer|
-        Answer.create text: answer[:text], question_id: question.id, correct: answer[:correct]
+      question_hash[:answers].each_with_index do |answer, index|
+        Answer.create text: answer[1], question_id: question.id, correct: (index == 0 )
       end
     end
 
