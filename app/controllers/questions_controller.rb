@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource :profile
   load_and_authorize_resource :question, only: [:show, :edit, :update, :destroy]
 
+  before_action :add_breadcrumbs
   # GET /questions
   # GET /questions.json
   def index
@@ -13,19 +14,23 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    add_breadcrumb "#{@question.text[0..60]}...", nil
   end
 
   def ask_random
+    add_breadcrumb :random, nil
     @question = Question.limit(1).order("RANDOM()").first
   end
 
   # GET /questions/new
   def new
+    add_breadcrumb :new, nil
     @question = @profile.questions.build
   end
 
   # GET /questions/1/edit
   def edit
+    add_breadcrumb "Редагувати #{ @question.text[0..40] }...", nil
   end
 
   # POST /questions
@@ -47,11 +52,9 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
+        format.html { redirect_to [@category, @subcategory, @profile, @question], notice: 'Question was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,6 +70,16 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def add_breadcrumbs
+    add_breadcrumb t('breadcrumbs.categories.index'), :categories_path
+    add_breadcrumb @category.title, category_path(@category)
+    add_breadcrumb t('breadcrumbs.subcategories.index'), category_subcategories_path(@category)
+    add_breadcrumb @subcategory.title, category_subcategory_path(@category, @subcategory)
+    add_breadcrumb t('breadcrumbs.profiles.index'), category_subcategory_profiles_path(@category, @subcategory)
+    add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
+    add_breadcrumb :index, category_subcategory_profile_questions_path(@category, @subcategory, @profile)
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def question_params
