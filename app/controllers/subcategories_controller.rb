@@ -2,6 +2,7 @@ class SubcategoriesController < ApplicationController
   load_and_authorize_resource :category
   load_and_authorize_resource :subcategory, only: [:show, :edit, :update, :destroy]
 
+  before_action :add_breadcrumbs
   # GET /subcategories
   # GET /subcategories.json
   def index
@@ -15,17 +16,18 @@ class SubcategoriesController < ApplicationController
   # GET /subcategories/1
   # GET /subcategories/1.json
   def show
-
+    add_breadcrumb @subcategory.title, category_subcategory_path(@category, @subcategory)
   end
-
 
   # GET /subcategories/new
   def new
+    add_breadcrumb :new, nil
     @subcategory = @category.subcategories.build
   end
 
   # GET /subcategories/1/edit
   def edit
+    add_breadcrumb "Редагувати #{ @subcategory.title }", nil
   end
 
   # POST /subcategories
@@ -67,13 +69,15 @@ class SubcategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_subcategory
-      @subcategory = Subcategory.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def subcategory_params
-      params.require(:subcategory).permit(:category_id, :title, :description)
-    end
+  def add_breadcrumbs
+    add_breadcrumb t('breadcrumbs.categories.index'), :categories_path
+    add_breadcrumb @category.title, category_path(@category)
+    add_breadcrumb :index, category_subcategories_path(@category)
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def subcategory_params
+    params.require(:subcategory).permit(:category_id, :title, :description)
+  end
 end

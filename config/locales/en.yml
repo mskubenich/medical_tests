@@ -24,3 +24,6 @@ en:
     categories:
       index: 'Кроки'
       new: 'Створити крок'
+    subcategories:
+      index: 'Підкатегорії'
+      new: 'Створити підкатегорію'
