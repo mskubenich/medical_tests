@@ -14,7 +14,8 @@
   %tbody
     - @subcategories.each do |subcategory|
       %tr
-        %td= subcategory.title
+        %td
+          = link_to subcategory.title, category_subcategory_profiles_path(@category, subcategory)
         %td= subcategory.description
         %td=l subcategory.created_at, format: :long
         %td
