@@ -17,5 +17,10 @@
                   - else
                     %i.glyphicon.glyphicon-remove
                 = answer.text
-  %br
-  = link_to 'Next', ask_category_subcategory_profile_path(@category, @subcategory, @profile), class: 'btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: black'
+
+.row
+  .col-md-6
+    - if @question
+      = link_to 'Далі', ask_category_subcategory_profile_path(@category, @subcategory, @profile), class: 'left btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: white'
+  .col-md-6.text-right
+    = link_to 'Почати спочатку', ask_category_subcategory_profile_path(@category, @subcategory, @profile, reset: true), class: 'right btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: white', :data => {:confirm => 'Ви справді хочете почати спочатку ? Поточні результати будуть втрачені.'}

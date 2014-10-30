@@ -15,6 +15,7 @@ class ProfilesController < ApplicationController
   def ask
     add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
     add_breadcrumb :ask, nil
+    GameSession.where(profile_id: @profile.id).destroy_all if params[:reset]
     @game = GameSession.where(profile_id: @profile.id).first_or_create
     @game.generate_state
     @question = @profile.questions.where(id: @game.available_questions.keys).limit(1).order("RANDOM()").first
