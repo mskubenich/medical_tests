@@ -1,20 +1,21 @@
 #state{ style: 'font-size: 0'}
   = render partial: 'state'
-%h4
-  = @question.text
-%table{ style: 'width: 100%'}
-  %tbody
-    - @question.answers.shuffle.each_with_index do |answer, index|
-      %tr
-        %td
-          %h5
-            %a.btn.btn-outline-inverse.btn-lg.answer{ href: '#', style: 'border-color: gray; width: 100%; text-align: left; color: black', data: {correct: answer.correct.to_s, send_result_link: send_result_category_subcategory_profile_path(@category, @subcategory, @profile, question_id: @question.id) }}
-              = "#{('A'.ord + index).chr}.   "
-              #answer-icon.hide{ style: 'display: inline'}
-                - if answer.correct
-                  %i.glyphicon.glyphicon-ok
-                - else
-                  %i.glyphicon.glyphicon-remove
-              = answer.text
-%br
-= link_to 'Next', ask_category_subcategory_profile_path(@category, @subcategory, @profile), class: 'btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: black'
+- if @question
+  %h4
+    = @question.text
+  %table{ style: 'width: 100%'}
+    %tbody
+      - @question.answers.shuffle.each_with_index do |answer, index|
+        %tr
+          %td
+            %h5
+              %a.btn.btn-outline-inverse.btn-lg.answer{ href: '#', style: 'border-color: gray; width: 100%; text-align: left; color: black', data: {correct: answer.correct.to_s, send_result_link: send_result_category_subcategory_profile_path(@category, @subcategory, @profile, question_id: @question.id) }}
+                = "#{('A'.ord + index).chr}.   "
+                #answer-icon.hide{ style: 'display: inline'}
+                  - if answer.correct
+                    %i.glyphicon.glyphicon-ok
+                  - else
+                    %i.glyphicon.glyphicon-remove
+                = answer.text
+  %br
+  = link_to 'Next', ask_category_subcategory_profile_path(@category, @subcategory, @profile), class: 'btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: black'
