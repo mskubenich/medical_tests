@@ -11,4 +11,16 @@ class GameSession < ActiveRecord::Base
       self.state[id] = {}
     end
   end
+
+  def available_questions
+    self.state.select{ |k, v| !v[:success].present? }
+  end
+
+  def available_questions_count
+    available_questions.keys.count
+  end
+
+  def correct_answered_questions_count
+    self.state.select{ |k, v| v[:success] == 'true' }.keys.count
+  end
 end

@@ -17,7 +17,7 @@ class ProfilesController < ApplicationController
     add_breadcrumb :ask, nil
     @game = GameSession.where(profile_id: @profile.id).first_or_create
     @game.generate_state
-    @question = @profile.questions.where(id: available_questions).limit(1).order("RANDOM()").first
+    @question = @profile.questions.where(id: @game.available_questions.keys).limit(1).order("RANDOM()").first
   end
 
   def send_result
