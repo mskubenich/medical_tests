@@ -3,6 +3,8 @@ class ProfilesController < ApplicationController
   load_and_authorize_resource :subcategory
   load_and_authorize_resource :profile, only: [:show, :edit, :update, :destroy, :ask, :send_result]
 
+  include ProfilesHelper
+
   before_action :add_breadcrumbs
   # GET /profiles
   # GET /profiles.json
@@ -15,7 +17,7 @@ class ProfilesController < ApplicationController
     add_breadcrumb :ask, nil
     @game = GameSession.where(profile_id: @profile.id).first_or_create
     @game.generate_state
-    @question = @profile.questions.limit(1).order("RANDOM()").first
+    @question = @profile.questions.where(id: available_questions).limit(1).order("RANDOM()").first
   end
 
   def send_result
