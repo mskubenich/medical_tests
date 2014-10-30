@@ -8,10 +8,9 @@ Rails.application.routes.draw do
     end
     resources :subcategories do
       resources :profiles do
-        resources :questions do
-          collection do
-            get :ask_random
-          end
+        resources :questions
+        member do
+          get :ask
         end
       end
     end

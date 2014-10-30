@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   load_and_authorize_resource :category
   load_and_authorize_resource :subcategory
-  load_and_authorize_resource :profile, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :profile, only: [:show, :edit, :update, :destroy, :ask]
 
   before_action :add_breadcrumbs
   # GET /profiles
@@ -10,6 +10,10 @@ class ProfilesController < ApplicationController
     @profiles = @subcategory.profiles
   end
 
+  def ask
+    add_breadcrumb :ask, nil
+    @question = @profile.questions.limit(1).order("RANDOM()").first
+  end
   # GET /profiles/1
   # GET /profiles/1.json
   def show

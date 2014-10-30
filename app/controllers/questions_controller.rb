@@ -17,11 +17,6 @@ class QuestionsController < ApplicationController
     add_breadcrumb "#{@question.text[0..60]}...", nil
   end
 
-  def ask_random
-    add_breadcrumb :random, nil
-    @question = Question.limit(1).order("RANDOM()").first
-  end
-
   # GET /questions/new
   def new
     add_breadcrumb :new, nil
