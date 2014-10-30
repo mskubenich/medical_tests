@@ -9,10 +9,6 @@ class SubcategoriesController < ApplicationController
     @subcategories = @category.subcategories
   end
 
-  def list
-    @subcategories = @category.subcategories
-  end
-
   # GET /subcategories/1
   # GET /subcategories/1.json
   def show

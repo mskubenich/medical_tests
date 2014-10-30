@@ -1,8 +1,24 @@
 =provide(:title, 'Home')
 .text-center
-  .btn.btn-primary.btn-large
-    %h1{ style: 'width: 300px'}
-      = link_to list_categories_path, style: 'color: white' do
-        Start Easy KROK
   %h2 Welcome to the Easy KROK web portal.
   %p In future this can be awesome web application. Now we in development. Thanks for visit.
+
+
+- @categories.each do |category|
+  %hr
+  .row
+    .col-md-2
+      %h4
+        %span.label.label-primary
+          = category.title
+    .col-md-10
+      - category.subcategories.each do |subcategory|
+        %h4{ style: 'color: RGBA(255, 0, 0, 0.7)'}
+          = subcategory.title
+        = subcategory.description
+        %br
+        - subcategory.profiles.each do |profile|
+          %br
+          = link_to ask_random_category_subcategory_profile_questions_path(category, subcategory, profile) do
+            %i.glyphicon.glyphicon-book
+            = profile.title

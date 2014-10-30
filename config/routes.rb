@@ -4,17 +4,10 @@ Rails.application.routes.draw do
 
   resources :categories do
     collection do
-      get :list
       post :upload_file
     end
     resources :subcategories do
-      collection do
-        get :list
-      end
       resources :profiles do
-        collection do
-          get :list
-        end
         resources :questions do
           collection do
             get :ask_random
