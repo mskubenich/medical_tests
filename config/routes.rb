@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         resources :questions
         member do
           get :ask
+          post :send_result
         end
       end
     end

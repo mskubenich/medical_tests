@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   load_and_authorize_resource :category
   load_and_authorize_resource :subcategory
-  load_and_authorize_resource :profile, only: [:show, :edit, :update, :destroy, :ask]
+  load_and_authorize_resource :profile, only: [:show, :edit, :update, :destroy, :ask, :send_result]
 
   before_action :add_breadcrumbs
   # GET /profiles
@@ -11,8 +11,19 @@ class ProfilesController < ApplicationController
   end
 
   def ask
+    add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
     add_breadcrumb :ask, nil
+    @game = GameSession.where(profile_id: @profile.id).first_or_create
+    @game.generate_state
     @question = @profile.questions.limit(1).order("RANDOM()").first
+  end
+
+  def send_result
+    @game = GameSession.where(profile_id: @profile.id).first_or_create
+    @game.generate_state
+    @game.state[params[:question_id].to_i][:success] = params[:success]
+    @game.save
+    render partial: 'state'
   end
   # GET /profiles/1
   # GET /profiles/1.json

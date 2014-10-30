@@ -1,3 +1,5 @@
+#state{ style: 'font-size: 0'}
+  = render partial: 'state'
 %h4
   = @question.text
 %table{ style: 'width: 100%'}
@@ -6,7 +8,7 @@
       %tr
         %td
           %h5
-            %a.btn.btn-outline-inverse.btn-lg.answer{ href: '#', style: 'border-color: gray; width: 100%; text-align: left; color: black', data: {correct: answer.correct.to_s }}
+            %a.btn.btn-outline-inverse.btn-lg.answer{ href: '#', style: 'border-color: gray; width: 100%; text-align: left; color: black', data: {correct: answer.correct.to_s, send_result_link: send_result_category_subcategory_profile_path(@category, @subcategory, @profile, question_id: @question.id) }}
               #answer-icon.hide{ style: 'display: inline'}
                 - if answer.correct
                   %i.glyphicon.glyphicon-ok
