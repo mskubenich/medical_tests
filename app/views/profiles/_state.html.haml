@@ -1,6 +1,6 @@
-- questions_count = @game.state.keys.count
-- finished_questions_count = questions_count - @game.available_questions_count
-- correct_answered_questions_count = @game.correct_answered_questions_count
+- questions_count = game.state.keys.count
+- finished_questions_count = questions_count - game.available_questions_count
+- correct_answered_questions_count = game.correct_answered_questions_count
 .text-center
   %h4
     = "#{ finished_questions_count } / #{ questions_count } (#{ ((finished_questions_count * 100.0)/questions_count).round(1) }%)"
@@ -24,5 +24,5 @@
     - success_result = ((correct_answered_questions_count * 100)/finished_questions_count).round(1) if finished_questions_count > 0
     %span{ style: 'color: RGBA(0, 204, 0, 0.5)'}
       = "( #{ success_result }% )"
-- @game.state.each do |key, value|
+- game.state.each do |key, value|
   %div{ style: "height: 30px; width: #{ 100.0/questions_count }%; margin: 0; display: inline-block; background-color: #{ value[:success].present? ? ( value[:success] == 'true' ? 'RGBA(0, 204, 0, 0.5)' : 'RGBA(255, 0, 0, 0.5)') : '#F0F0F0' }" }

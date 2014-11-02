@@ -1,4 +1,25 @@
 = render 'layouts/admin_navs'
-
-%h1 GameSessions#index
-%p Find me in app/views/game_sessions/index.html.haml
+%br
+%br
+%table.table.table-striped
+  - @games.each do |game|
+    - profile = game.profile
+    - subcategory = profile.subcategory
+    - category = subcategory.category
+    %tr
+      %td
+        = link_to category.title, category_path(category)
+        = '/'
+        = link_to subcategory.title, category_subcategory_path(category, subcategory)
+        = '/'
+        = link_to profile.title, category_subcategory_profile_path(category, subcategory, profile)
+      %td
+        Останні зміни:
+        = l game.updated_at, format: :long
+    %tr
+      %td{ colspan: 2 }
+        .state{ style: 'font-size: 0'}
+          = render partial: 'profiles/state', locals: { game: game }
+        %br
+        %br
+        %br

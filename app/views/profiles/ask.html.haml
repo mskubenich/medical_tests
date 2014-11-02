@@ -1,5 +1,5 @@
 #state{ style: 'font-size: 0'}
-  = render partial: 'state'
+  = render partial: 'state', locals: { game: @game }
 - if @question
   %h4
     = @question.text
