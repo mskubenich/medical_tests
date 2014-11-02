@@ -17,6 +17,7 @@ gem 'bootstrap-sass-extras'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'cancancan'
 gem 'devise'
+gem 'simple_form'
 
 group :development do
   gem 'sqlite3'
