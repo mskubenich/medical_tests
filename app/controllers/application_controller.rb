@@ -8,9 +8,5 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
-  def current_user
-
-  end
-
   #add_breadcrumb :index, :root_path
 end

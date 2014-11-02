@@ -30,24 +30,28 @@
             Easy KROK
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
-            %li.active
-              = link_to "Learning", root_path
-            %li
-              = link_to "Go to test", root_path
+            -#%li.active
+            -#  = link_to "Learning", root_path
+            -#%li
+            -#  = link_to "Go to test", root_path
           %ul.nav.navbar-nav.navbar-right
-            %li
-              = link_to categories_path do
-                %span.glyphicon.glyphicon-cog
-          -#- if current_user
-          -#  %ul.nav.navbar-nav.navbar-right
-          -#    %li
-          -#      %p.navbar-text
-          -#        Hello
-          -#        = current_user.login
-          -#    %li
-          -#      .btn.btn-default.navbar-btn
-          -#        = link_to destroy_sessions_path, method: :delete do
-          -#          Sign Out
+            - if current_user
+              %li
+                %p.navbar-text
+                  Hello
+                  = current_user.email
+                  !
+              %li
+                = link_to destroy_user_session_path, method: :delete do
+                  Sign Out
+              %li
+                = link_to categories_path do
+                  %span.glyphicon.glyphicon-cog
+            - else
+              %li
+                = link_to new_user_session_path do
+                  Sign In
+
     .container
       .row
         .col-md-12
