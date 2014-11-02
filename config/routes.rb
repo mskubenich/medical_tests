@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :pages, only: [:index]
 
+  resources :game_sessions, only: [:index]
+
   resources :categories do
     collection do
       post :upload_file

@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   load_and_authorize_resource :category, only: [:show, :edit, :update, :destroy]
-  add_breadcrumb :index, :categories_path
+  #add_breadcrumb :index, :categories_path
 
   # GET /categories
   # GET /categories.json

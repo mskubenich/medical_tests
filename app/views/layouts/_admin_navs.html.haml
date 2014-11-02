@@ -1,0 +1,7 @@
+%ul.nav.nav-tabs{ role: 'tablist' }
+  %li{ role: 'presentation', class: "#{ 'active' if params[:controller] == 'categories' }" }
+    = link_to categories_path do
+      Categories
+  %li{ role: 'presentation', class: "#{ 'active' if params[:controller] == 'game_sessions' }" }
+    = link_to game_sessions_path do
+      Game sessions
