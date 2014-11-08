@@ -15,17 +15,16 @@ class ProfilesController < ApplicationController
   def ask
     add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
     add_breadcrumb :ask, nil
-    GameSession.where(profile_id: @profile.id).destroy_all if params[:reset]
-    @game = GameSession.where(profile_id: @profile.id).first_or_create
-    @game.generate_state
-    @question = @profile.questions.where(id: @game.available_questions.keys).limit(1).order("RANDOM()").first
+    @profile.session = nil if params[:reset]
+    @profile.save
+    @profile.generate_state
+    @question = @profile.questions.where(id: @profile.available_questions.keys).limit(1).order("RANDOM()").first
   end
 
   def send_result
-    @game = GameSession.where(profile_id: @profile.id).first_or_create
-    @game.generate_state
-    @game.state[params[:question_id].to_i][:success] = params[:success]
-    @game.save
+    @profile.generate_state
+    @profile.session[params[:question_id].to_i][:success] = params[:success]
+    @profile.save
     render partial: 'state'
   end
   # GET /profiles/1
