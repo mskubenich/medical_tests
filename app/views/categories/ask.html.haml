@@ -6,6 +6,8 @@
                             next_question_path: next_question_category_path(@category) }}
     .text-center
       %h4
+        = @category.title[0..18]
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{ state.finished_questions_count }} / {{ state.questions_count }} ({{ state.finished_questions_percentage }}%)
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         %span

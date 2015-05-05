@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def index
-    @categories = Category.all
+    @categories = Category.all.order(:title)
   end
 end
