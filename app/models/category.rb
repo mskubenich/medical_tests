@@ -1,9 +1,6 @@
 class Category < ActiveRecord::Base
   has_many :questions, dependent: :destroy
 
-  has_one :game_session
-
-
   serialize :session
 
   def generate_state
