@@ -6,6 +6,6 @@
       %pre.prettyprint= @profile.title
 
 .form-group
-  = link_to t('.back', :default => t("helpers.links.back")), category_subcategory_profiles_path(@category, @subcategory), :class => 'btn btn-default'
-  = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_subcategory_profile_path(@category, @subcategory, @profile), :class => 'btn btn-default'
-  = link_to t('.destroy', :default => t("helpers.links.destroy")), category_subcategory_profile_path(@category, @subcategory, @profile), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+  = link_to t('.back', :default => t("helpers.links.back")), category_profiles_path(@category), :class => 'btn btn-default'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_profile_path(@category, @profile), :class => 'btn btn-default'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), category_profile_path(@category, @profile), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

@@ -1,3 +1,3 @@
 class Category < ActiveRecord::Base
-  has_many :subcategories, dependent: :destroy
+  has_many :profiles, dependent: :destroy
 end

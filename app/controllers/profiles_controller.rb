@@ -1,6 +1,5 @@
 class ProfilesController < ApplicationController
   load_and_authorize_resource :category
-  load_and_authorize_resource :subcategory
   load_and_authorize_resource :profile, only: [:show, :edit, :update, :destroy, :ask, :send_result]
 
   include ProfilesHelper
@@ -9,11 +8,11 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = @subcategory.profiles
+    @profiles = @category.profiles
   end
 
   def ask
-    add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
+    add_breadcrumb @profile.title, category_profile_path(@category, @profile)
     add_breadcrumb :ask, nil
     @profile.session = nil if params[:reset]
     @profile.save
@@ -30,13 +29,13 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
+    add_breadcrumb @profile.title, category_profile_path(@category, @profile)
   end
 
   # GET /profiles/new
   def new
     add_breadcrumb :new, nil
-    @profile = @subcategory.profiles.build
+    @profile = @category.profiles.build
   end
 
   # GET /profiles/1/edit
@@ -51,7 +50,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to [@category, @subcategory, @profile], notice: 'Profile was successfully created.' }
+        format.html { redirect_to [@category, @profile], notice: 'Profile was successfully created.' }
       else
         format.html { render :new }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
@@ -64,7 +63,7 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
-        format.html { redirect_to [@category, @subcategory, @profile], notice: 'Profile was successfully updated.' }
+        format.html { redirect_to [@category, @profile], notice: 'Profile was successfully updated.' }
       else
         format.html { render :edit }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
@@ -77,7 +76,7 @@ class ProfilesController < ApplicationController
   def destroy
     @profile.destroy
     respond_to do |format|
-      format.html { redirect_to category_subcategory_profiles_url(@category, @subcategory), notice: 'Profile was successfully destroyed.' }
+      format.html { redirect_to category_profiles_url(@category), notice: 'Profile was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -87,13 +86,11 @@ class ProfilesController < ApplicationController
   def add_breadcrumbs
     add_breadcrumb t('breadcrumbs.categories.index'), :categories_path
     add_breadcrumb @category.title, category_path(@category)
-    add_breadcrumb t('breadcrumbs.subcategories.index'), category_subcategories_path(@category)
-    add_breadcrumb @subcategory.title, category_subcategory_path(@category, @subcategory)
-    add_breadcrumb :index, category_subcategory_profiles_path(@category, @subcategory)
+    add_breadcrumb :index, category_profiles_path(@category)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params
-    params.require(:profile).permit(:title, :subcategory_id)
+    params.require(:profile).permit(:title, :category_id)
   end
 end

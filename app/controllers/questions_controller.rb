@@ -1,6 +1,5 @@
 class QuestionsController < ApplicationController
   load_and_authorize_resource :category
-  load_and_authorize_resource :subcategory
   load_and_authorize_resource :profile
   load_and_authorize_resource :question, only: [:show, :edit, :update, :destroy]
 
@@ -35,7 +34,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to [@category, @subcategory, @profile, @question], notice: 'Question was successfully created.' }
+        format.html { redirect_to [@category, @profile, @question], notice: 'Question was successfully created.' }
       else
         format.html { render :new }
       end
@@ -47,7 +46,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to [@category, @subcategory, @profile, @question], notice: 'Question was successfully updated.' }
+        format.html { redirect_to [@category, @profile, @question], notice: 'Question was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -69,11 +68,9 @@ class QuestionsController < ApplicationController
   def add_breadcrumbs
     add_breadcrumb t('breadcrumbs.categories.index'), :categories_path
     add_breadcrumb @category.title, category_path(@category)
-    add_breadcrumb t('breadcrumbs.subcategories.index'), category_subcategories_path(@category)
-    add_breadcrumb @subcategory.title, category_subcategory_path(@category, @subcategory)
-    add_breadcrumb t('breadcrumbs.profiles.index'), category_subcategory_profiles_path(@category, @subcategory)
-    add_breadcrumb @profile.title, category_subcategory_profile_path(@category, @subcategory, @profile)
-    add_breadcrumb :index, category_subcategory_profile_questions_path(@category, @subcategory, @profile)
+    add_breadcrumb t('breadcrumbs.profiles.index'), category_profiles_path(@category)
+    add_breadcrumb @profile.title, category_profile_path(@category, @profile)
+    add_breadcrumb :index, category_profile_questions_path(@category, @profile)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

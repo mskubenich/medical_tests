@@ -10,7 +10,7 @@
     - @categories.each do |category|
       %tr
         %td
-          = link_to category.title, category_subcategories_path(category)
+          = link_to category.title, category_path(category)
         %td=l category.created_at, format: :long
         %td
           = link_to category_path(category), :class => 'btn btn-xs', :title => "#{ t('.show', :default => t('helpers.links.show')) }" do

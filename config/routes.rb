@@ -6,13 +6,11 @@ Rails.application.routes.draw do
     collection do
       post :upload_file
     end
-    resources :subcategories do
-      resources :profiles do
-        resources :questions
-        member do
-          get :ask
-          post :send_result
-        end
+    resources :profiles do
+      resources :questions
+      member do
+        get :ask
+        post :send_result
       end
     end
   end
