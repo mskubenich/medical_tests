@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  load_and_authorize_resource :category, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :category, only: [:show, :edit, :update, :destroy, :ask, :send_result]
   add_breadcrumb :index, :categories_path
 
   def index
@@ -66,6 +66,21 @@ class CategoriesController < ApplicationController
     end
 
     redirect_to categories_path(), notice: "Questions was successfully added."
+  end
+
+  def ask
+    add_breadcrumb @category.title, nil
+    @category.session = nil if params[:reset]
+    @category.save
+    @category.generate_state
+    @question = @category.questions.where(id: @category.available_questions.keys).limit(1).order("RANDOM()").first
+  end
+
+  def send_result
+    @category.generate_state
+    @category.session[params[:question_id].to_i][:success] = params[:success]
+    @category.save
+    render partial: 'state'
   end
 
   private

@@ -1,6 +1,6 @@
-- questions_count = @profile.session.keys.count
-- finished_questions_count = questions_count - @profile.available_questions_count
-- correct_answered_questions_count = @profile.correct_answered_questions_count
+- questions_count = @category.session.keys.count
+- finished_questions_count = questions_count - @category.available_questions_count
+- correct_answered_questions_count = @category.correct_answered_questions_count
 .text-center
   %h4
     = "#{ finished_questions_count } / #{ questions_count } (#{ ((finished_questions_count * 100.0)/questions_count).round(1) }%)"

@@ -3,10 +3,6 @@ en:
     categories:
       index: 'Категорії'
       new: 'Створити категорію'
-    profiles:
-      index: 'Профілі'
-      new: 'Створити профіль'
-      ask: 'Тестування'
     questions:
       index: 'Питання'
       new: 'Створити питання'

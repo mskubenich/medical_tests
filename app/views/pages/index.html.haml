@@ -7,16 +7,10 @@
 - @categories.each do |category|
   %hr
   .row
-    .col-md-2
-      %h4
-        %span.label.label-primary
-          = category.title
-    .col-md-10
+    .col-md-12
       %br
-      - category.profiles.each do |profile|
-        %br
-        = link_to ask_category_profile_path(category, profile) do
-          %i.glyphicon.glyphicon-book
-          = profile.title
+      = link_to ask_category_path(category) do
+        %i.glyphicon.glyphicon-book
+        = category.title
       %br
       %br

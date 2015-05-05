@@ -1,0 +1,27 @@
+#state{ style: 'font-size: 0'}
+  = render partial: 'state'
+- if @question
+  %h4
+    = @question.text
+  %table{ style: 'width: 100%'}
+    %tbody
+      - @question.answers.shuffle.each_with_index do |answer, index|
+        %tr
+          %td
+            %h5
+              %a.btn.btn-outline-inverse.btn-lg.answer{ href: '#', style: 'border-color: gray; width: 100%; text-align: left; color: black', data: {points: answer.points, send_result_link: send_result_category_path(@category, question_id: @question.id) }}
+                = "#{('A'.ord + index).chr}.   "
+                #answer-icon.hide{ style: 'display: inline'}
+                  - if answer.correct
+                    %i.glyphicon.glyphicon-ok
+                  - else
+                    %i.glyphicon.glyphicon-remove
+                = answer.text
+                = "(#{ answer.points })"
+
+.row
+  .col-md-6
+    = link_to 'Почати спочатку', ask_category_path(@category, reset: true), class: 'right btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: white', :data => {:confirm => 'Ви справді хочете почати спочатку ? Поточні результати будуть втрачені.'}
+  .col-md-6.text-right
+    - if @question
+      = link_to 'Далі', ask_category_path(@category), class: 'left btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: white'

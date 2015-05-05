@@ -25,7 +25,6 @@
 %hr
 
 = form_tag upload_file_categories_path(@category), method: 'post', class: 'form-horizontal', multipart: true do
-  = hidden_field_tag :profile_id, :class => 'text_field form-control'
   .form-group
     = label_tag :text, nil, :class => 'control-label col-md-2'
     .col-md-10

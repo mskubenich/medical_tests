@@ -51,10 +51,10 @@ class QuestionsController < ApplicationController
 
   def add_breadcrumbs
     add_breadcrumb t('breadcrumbs.categories.index'), :categories_path
-    add_breadcrumb @category.title, category_questions_path(@category, @profile)
+    add_breadcrumb @category.title, category_questions_path(@category)
   end
 
   def question_params
-    params.require(:question).permit(:profile_id, :text)
+    params.require(:question).permit(:text)
   end
 end

@@ -47,11 +47,11 @@
     .container
       .row
         .col-md-12
-          = render_breadcrumbs
+          = render_breadcrumbs unless params[:action] == 'ask'
           = bootstrap_flash
           = yield
       %br
       %br
       %br
       %footer
-        %p &copy; Company 2014
+        %p &copy; 2015

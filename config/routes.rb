@@ -6,15 +6,13 @@ Rails.application.routes.draw do
     collection do
       post :upload_file
     end
+    member do
+      get :ask
+      post :send_result
+    end
     resources :questions, except: [:show] do
       resources :answers, except: [:show] do
 
-      end
-    end
-    resources :profiles do
-      member do
-        get :ask
-        post :send_result
       end
     end
   end
