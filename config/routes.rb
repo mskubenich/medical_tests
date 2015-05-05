@@ -2,12 +2,16 @@ Rails.application.routes.draw do
 
   resources :pages, only: [:index]
 
-  resources :categories do
+  resources :categories, except: [:show] do
     collection do
       post :upload_file
     end
+    resources :questions, except: [:show] do
+      resources :answers, except: [:show] do
+
+      end
+    end
     resources :profiles do
-      resources :questions
       member do
         get :ask
         post :send_result
