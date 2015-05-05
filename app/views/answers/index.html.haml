@@ -10,6 +10,7 @@
   %thead
     %tr
       %th= model_class.human_attribute_name(:text)
+      %th= model_class.human_attribute_name(:points)
       %th{ style: 'width: 99px'}
         =t '.actions', :default => t("helpers.actions")
   %tbody
@@ -17,6 +18,8 @@
       %tr
         %td
           = answer.text
+        %td
+          = answer.points
         %td
           = link_to edit_category_question_answer_path(@category, @question, answer), :class => 'btn btn-xs', :title => "#{ t('.edit', :default => t('helpers.links.edit')) }" do
             = glyph 'pencil'
