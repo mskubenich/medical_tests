@@ -50,8 +50,6 @@ class CategoriesController < ApplicationController
   end
 
   def upload_file
-    Category.destroy_all
-
     data = YAML.load(params[:questions_file].read).with_indifferent_access
 
     # render text: 'ok'
