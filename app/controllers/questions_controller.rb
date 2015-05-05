@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   before_action :add_breadcrumbs
 
   def index
-    @questions = @category.questions.paginate(:page => params[:page], per_page: 2).order('created_at DESC')
+    @questions = @category.questions.paginate(:page => params[:page], per_page: 10).order('created_at DESC')
   end
 
   def new

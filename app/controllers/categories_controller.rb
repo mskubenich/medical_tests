@@ -50,20 +50,22 @@ class CategoriesController < ApplicationController
   end
 
   def upload_file
+    Category.destroy_all
+
     data = YAML.load(params[:questions_file].read).with_indifferent_access
 
-    category = Category.where(title: data[:category][:title]).first_or_create
-    subcategory = Subcategory.where(title: data[:category][:subcategory][:title], category_id: category.id).first_or_create
-    profile = Profile.create title: data[:category][:subcategory][:profile][:title], subcategory_id: subcategory.id
-
-    data[:category][:subcategory][:profile][:questions].each do |question_hash|
-      question = Question.create profile_id: profile.id, text: question_hash[:text]
-      question_hash[:answers].each_with_index do |answer, index|
-        Answer.create text: answer[1], question_id: question.id, correct: (index == 0 )
+    # render text: 'ok'
+    data[:categories].each do |category_hash|
+      category = Category.where(title: category_hash[:title]).first_or_create
+      category_hash[:questions].each do |question_hash|
+        question = Question.create category_id: category.id, text: question_hash[:text]
+        question_hash[:answers].each do |answer_hash|
+          Answer.create text: answer_hash[:text], question_id: question.id, points: answer_hash[:points].to_i
+        end
       end
     end
 
-    redirect_to category_subcategory_profile_questions_path(category, subcategory, profile), notice: "Questions was successfully added."
+    redirect_to categories_path(), notice: "Questions was successfully added."
   end
 
   private
