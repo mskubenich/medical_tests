@@ -1,27 +1,41 @@
-#state{ style: 'font-size: 0'}
-  = render partial: 'state'
-- if @question
-  %h4
-    = @question.text
-  %table{ style: 'width: 100%'}
-    %tbody
-      - @question.answers.shuffle.each_with_index do |answer, index|
-        %tr
-          %td
-            %h5
-              %a.btn.btn-outline-inverse.btn-lg.answer{ href: '#', style: 'border-color: gray; width: 100%; text-align: left; color: black', data: {points: answer.points, send_result_link: send_result_category_path(@category, question_id: @question.id) }}
-                = "#{('A'.ord + index).chr}.   "
-                #answer-icon.hide{ style: 'display: inline'}
-                  - if answer.correct
-                    %i.glyphicon.glyphicon-ok
-                  - else
-                    %i.glyphicon.glyphicon-remove
-                = answer.text
-                = "(#{ answer.points })"
+.row{'ng-app' => "Test", 'ng-controller' => 'TestController'}
+  .col-md-12#state{ data: { category_id: @category.id,
+                            state_category_path: state_category_path(@category),
+                            answer_question_path: answer_question_category_path(@category),
+                            reset_path: reset_game_category_path(@category),
+                            next_question_path: next_question_category_path(@category) }}
+    .text-center
+      %h4
+        {{ state.finished_questions_count }} / {{ state.questions_count }} ({{ state.finished_questions_percentage }}%)
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        %span
+          {{ state.points }} балів із
+        %span
+          {{ state.available_points }} можливих
 
-.row
-  .col-md-6
-    = link_to 'Почати спочатку', ask_category_path(@category, reset: true), class: 'right btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: white', :data => {:confirm => 'Ви справді хочете почати спочатку ? Поточні результати будуть втрачені.'}
-  .col-md-6.text-right
-    - if @question
-      = link_to 'Далі', ask_category_path(@category), class: 'left btn btn-outline-inverse btn-lg', style: 'border-color: gray; background-color: #428bca; color: white'
+        -#- @game.state.each do |key, value|
+        -#  %div{ style: "height: 30px; width: #{ 100.0/questions_count }%; margin: 0; display: inline-block; background-color: #{ value[:success].present? ? ( value[:success] == 'true' ? 'RGBA(0, 204, 0, 0.5)' : 'RGBA(255, 0, 0, 0.5)') : '#F0F0F0' }" }
+
+  .col-md-12
+    %h4
+      {{ question.question.text }}
+    %table{ style: 'width: 100%'}
+      %fieldset
+        %label.answer{ 'ng-repeat' => 'variant in question.answers', style: "background-color: {{ correct_answer[variant.id] ? 'RGBA(0, 204, 0, 0.5)' : 'white' }}" }
+          %input{ type: "checkbox", 'ng-model' => "answer[variant.id]"}
+          {{ variant.text }}
+          %small{ 'ng-show' => 'answered' }
+            ({{ variant.points }}) балів
+          .rounded-one{ 'ng-show' => "answer[variant.id]"}
+    %br
+    %br
+  .col-md-12.text-center
+    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickResetButton()' }
+      Почати спочатку
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickAnswerButton()', 'ng-disabled' => 'answered' }
+      Відповісти
+    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickNextAnswerButton()' }
+      Далі

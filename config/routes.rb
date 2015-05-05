@@ -8,7 +8,10 @@ Rails.application.routes.draw do
     end
     member do
       get :ask
-      post :send_result
+      get :state
+      get :next_question
+      post :answer_question
+      post :reset_game
     end
     resources :questions, except: [:show] do
       resources :answers, except: [:show] do

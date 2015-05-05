@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505190425) do
+ActiveRecord::Schema.define(version: 20150505204244) do
 
   create_table "answers", force: true do |t|
     t.integer "question_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150505190425) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "session"
+    t.integer  "points"
   end
 
   create_table "game_sessions", force: true do |t|
@@ -35,7 +36,6 @@ ActiveRecord::Schema.define(version: 20150505190425) do
   end
 
   create_table "questions", force: true do |t|
-    t.integer  "profile_id"
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
