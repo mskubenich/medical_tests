@@ -4,11 +4,9 @@
   %p In future this can be awesome web application. Now we in development. Thanks for visit.
 
 
-- @categories.each do |category|
-  %hr
-  .row
-    .col-md-12
-      %br
+.row
+  .col-md-12
+    - @categories.each do |category|
       = link_to ask_category_path(category) do
         %i.glyphicon.glyphicon-book
         = category.title

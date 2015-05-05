@@ -30,12 +30,12 @@
     %br
     %br
   .col-md-12.text-center
-    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickResetButton()' }
+    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickResetButton()', 'ng-disabled' => 'disabled'  }
       Почати спочатку
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickAnswerButton()', 'ng-disabled' => 'answered' }
+    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickAnswerButton()', 'ng-disabled' => 'answered || disabled', 'ng-show' => 'question.question' }
       Відповісти
-    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickNextAnswerButton()' }
+    .left.btn.btn-outline-inverse.btn-lg{ style: 'border-color: gray; background-color: #428bca; color: white', 'ng-click' => 'clickNextAnswerButton()', 'ng-show' => 'question.question', 'ng-disabled' => 'disabled' }
       Далі

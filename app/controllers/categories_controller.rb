@@ -83,7 +83,11 @@ class CategoriesController < ApplicationController
     @category.generate_state
     @category.save
     @question = @category.questions.where(id: @category.available_questions.keys).limit(1).order("RANDOM()").first
-    render json: { question: @question, answers: @question.answers.select(:id, :text, :points).shuffle }
+    if @question
+      render json: { question: @question, answers: @question.answers.select(:id, :text, :points).shuffle }
+    else
+      render json: { question: nil, answers: []}
+    end
   end
 
   def answer_question
@@ -110,6 +114,8 @@ class CategoriesController < ApplicationController
   end
 
   def state
+    @category.generate_state
+    @category.save
     questions_count = @category.session.keys.count
     finished_questions_count = questions_count - @category.available_questions_count
     points = @category.points.to_i

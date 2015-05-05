@@ -5,6 +5,7 @@
             $scope.question_id = null;
             $scope.category_id = $('#state').data('category-id');
             $scope.answered = false;
+            $scope.disabled = false;
 
             $scope.clickAnswerButton = function(){
                 $scope.answered = true;
@@ -18,27 +19,32 @@
 
             $scope.clickResetButton = function(){
                 $scope.answered = false;
+                $scope.answer = {};
+                $scope.disabled = true;
                 questions.resetGame()
                     .success(function(data){
                         $scope.nextQuestion();
                         $scope.updateState();
                     })
                     .error(function(){
-
+                        $scope.disabled = false;
                     });
             };
 
             $scope.updateState = function(){
+                $scope.disabled = true;
                 questions.getGameState()
                     .success(function(data){
                         $scope.state = data;
+                        $scope.disabled = false;
                     })
                     .error(function(){
-
+                        $scope.disabled = false;
                     });
             };
 
             $scope.nextQuestion = function(){
+                $scope.disabled = true;
                 questions.getNextQuestion()
                     .success(function(data){
                         $scope.question = data;
@@ -49,20 +55,23 @@
                             $scope.answer[$scope.question.answers[i].id] = false;
                             i++;
                         }
+                        $scope.disabled = false;
                     })
                     .error(function(){
-
+                        $scope.disabled = false;
                     });
             };
 
             $scope.answerQuestion = function(){
+                $scope.disabled = true;
                 questions.answer({question_id: $scope.question.question.id, answer: $scope.answer})
                     .success(function(data){
                         $scope.correct_answer = data;
                         $scope.updateState();
+                        $scope.disabled = false;
                     })
                     .error(function(){
-
+                        $scope.disabled = false;
                     });
             };
 
