@@ -9,6 +9,6 @@
     - @categories.each do |category|
       = link_to ask_category_path(category) do
         %i.glyphicon.glyphicon-book
-        = category.title
+        = "#{ category.title } (#{ category.state[:finished_questions_percentage] }% #{ category.state[:points ] } балів із #{ category.state[:available_points] })"
       %br
       %br

@@ -112,21 +112,7 @@ class CategoriesController < ApplicationController
   end
 
   def state
-    @category.generate_state
-    @category.save
-    questions_count = @category.questions.count
-    finished_questions_count = @category.answered_questions_count
-    points = @category.points.to_i
-    available_points = questions_count * 100
-    finished_questions_percentage = ((finished_questions_count * 100.0)/questions_count).round(1)
-
-    render json: {
-               questions_count:          questions_count,
-               finished_questions_count: finished_questions_count,
-               points:  points,
-               available_points:  available_points,
-               finished_questions_percentage: finished_questions_percentage
-           }
+    render json: @category.state
   end
 
   private
