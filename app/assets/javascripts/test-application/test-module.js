@@ -45,6 +45,7 @@
 
             $scope.nextQuestion = function(){
                 $scope.disabled = true;
+                $scope.correct_answer = null;
                 questions.getNextQuestion()
                     .success(function(data){
                         $scope.question = data;

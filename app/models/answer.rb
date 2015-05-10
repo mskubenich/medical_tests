@@ -5,6 +5,7 @@ class Answer
     self.question_id = options[:question_id]
     self.text = options[:text]
     self.points = options[:points]
+    self.id = options[:id]
   end
 
   def question

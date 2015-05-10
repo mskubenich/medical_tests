@@ -57,9 +57,15 @@ class CategoriesController < ApplicationController
       category = Category.where(title: category_hash[:title]).first_or_create
       category_hash[:questions].each do |question_hash|
         question = Question.create category_id: category.id, text: question_hash[:text]
-        question_hash[:answers].each do |answer_hash|
-          Answer.create text: answer_hash[:text], question_id: question.id, points: answer_hash[:points].to_i
+        question_hash[:answers].each_with_index do |answer_hash, index|
+          question.answers << Answer.new({
+                                             text: answer_hash[:text],
+                                             question_id: question.id,
+                                             points: answer_hash[:points].to_i,
+                                             id: index + 1
+                                         })
         end
+        question.save!
       end
     end
 
