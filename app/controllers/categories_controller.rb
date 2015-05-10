@@ -80,7 +80,7 @@ class CategoriesController < ApplicationController
   def next_question
     @category.generate_state
     @category.save
-    @question = @category.questions.where(id: @category.available_questions.keys).limit(1).order("RANDOM()").first
+    @question = @category.questions.where.not(id: @category.session).limit(1).order("RAND()").first
     if @question
       render json: { question: @question, answers: @question.answers.select(:id, :text, :points).shuffle }
     else
@@ -105,7 +105,7 @@ class CategoriesController < ApplicationController
       end
     end
 
-    @category.session[params[:question_id].to_i][:success] = true
+    @category.session << params[:question_id].to_i
     @category.save
 
     render json: result
@@ -114,8 +114,8 @@ class CategoriesController < ApplicationController
   def state
     @category.generate_state
     @category.save
-    questions_count = @category.session.keys.count
-    finished_questions_count = questions_count - @category.available_questions_count
+    questions_count = @category.questions.count
+    finished_questions_count = @category.answered_questions_count
     points = @category.points.to_i
     available_points = questions_count * 100
     finished_questions_percentage = ((finished_questions_count * 100.0)/questions_count).round(1)

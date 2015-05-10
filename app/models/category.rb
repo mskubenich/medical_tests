@@ -4,25 +4,11 @@ class Category < ActiveRecord::Base
   serialize :session
 
   def generate_state
-    self.points ||= 0
-    return self.session unless self.session.blank?
-
-    self.session = {}
-    self.questions.pluck(:id).each do |id|
-      self.session[id] = {}
-    end
-
+    self.points ||= 0 unless self.points
+    self.session = [] unless self.session
   end
 
-  def available_questions
-    self.session ? self.session.select{ |k, v| !v[:success].present? } : {}
-  end
-
-  def available_questions_count
-    available_questions.keys.count
-  end
-
-  def correct_answered_questions_count
-    self.session.select{ |k, v| v[:success] == 'true' }.keys.count
+  def answered_questions_count
+    self.session ? self.session.count : 0
   end
 end

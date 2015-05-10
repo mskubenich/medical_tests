@@ -28,13 +28,6 @@ ActiveRecord::Schema.define(version: 20150505204244) do
     t.integer  "points"
   end
 
-  create_table "game_sessions", force: true do |t|
-    t.integer  "profile_id"
-    t.text     "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "questions", force: true do |t|
     t.text     "text"
     t.datetime "created_at"
