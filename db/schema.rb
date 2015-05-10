@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505204244) do
-
-  create_table "answers", force: true do |t|
-    t.integer "question_id"
-    t.text    "text"
-    t.boolean "correct"
-    t.integer "points"
-  end
+ActiveRecord::Schema.define(version: 20150510130749) do
 
   create_table "categories", force: true do |t|
     t.string   "title"
@@ -33,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150505204244) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
+    t.text     "answers"
   end
 
 end

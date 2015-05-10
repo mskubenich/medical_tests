@@ -1,7 +1,6 @@
 class AnswersController < ApplicationController
   load_and_authorize_resource :category
   load_and_authorize_resource :question
-  load_and_authorize_resource :answer, only: [:edit, :update, :destroy]
 
   before_action :add_breadcrumbs
 
@@ -11,41 +10,48 @@ class AnswersController < ApplicationController
 
   def new
     add_breadcrumb :new, nil
-    @answer = @question.answers.build
+    @answer = Answer.new question_id: @question.id
   end
 
   def edit
+    @answer = @question.answers.select{|answer| answer.id == params[:id].to_i}.try(:first)
     add_breadcrumb "Редагувати #{ @answer.text[0..40] }...", nil
   end
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = Answer.new question_id: @question.id, text: params[:answer][:text], points: params[:answer][:points].to_i
+    @answer.set_id
 
-    respond_to do |format|
-      if @answer.save
-        format.html { redirect_to category_question_answers_path(@category, @question), notice: 'Answer was successfully created.' }
-      else
-        format.html { render :new }
-      end
-    end
+    @question.answers << @answer
+    @question.save
+
+    redirect_to category_question_answers_path(@category, @question), notice: 'Answer was successfully created.'
   end
 
   def update
-    respond_to do |format|
-      if @answer.update(answer_params)
-        format.html { redirect_to category_question_answers_path(@category, @question), notice: 'Question was successfully updated.' }
-      else
-        format.html { render :edit }
+    @answers = @question.answers
+
+    @answers.each do |answer|
+      if answer.id == params[:id].to_i
+        answer.text = params[:answer][:text]
+        answer.points = params[:answer][:points]
       end
     end
+
+    @question.answers = @answers
+    @question.save
+
+    redirect_to category_question_answers_path(@category, @question), notice: 'Question was successfully updated.'
   end
 
   def destroy
-    @answer.destroy
-    respond_to do |format|
-      format.html { redirect_to category_question_answers_path(@category, @question), notice: 'Answer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @answers = @question.answers.delete_if{|answer| answer.id == params[:id].to_i}
+
+    @question.answers = @answers
+    @question.save
+
+
+    redirect_to category_question_answers_path(@category, @question), notice: 'Answer was successfully destroyed.'
   end
 
   private

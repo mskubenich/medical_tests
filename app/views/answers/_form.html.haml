@@ -1,13 +1,15 @@
-= form_for [@category, @question, @answer], :html => { :class => 'form-horizontal' } do |f|
+- path = @answer.id.blank? ?  category_question_answers_path(@category.id, @question.id) : category_question_answer_path(@category.id, @question.id, id: @answer.id)
+- method = @answer.id.blank? ? :post : :patch
+= form_tag path, class: 'form-horizontal', method: method do
   .form-group
-    = f.label :text, :class => 'control-label col-md-2'
+    = label_tag '', :text, :class => 'control-label col-md-2'
     .col-md-10
-      = f.text_area :text, :class => 'text_field form-control', rows: 10
+      = text_area_tag 'answer[text]', @answer.text, :class => 'text_field form-control', rows: 10
   .form-group
-    = f.label :points, :class => 'control-label col-md-2'
+    = label_tag '', :points, :class => 'control-label col-md-2'
     .col-md-10
-      = f.number_field :points, :class => 'text_field form-control'
+      = number_field_tag 'answer[points]', @answer.points, :class => 'text_field form-control'
   .form-group
     .col-md-offset-2.col-md-10
-      = f.submit nil, :class => 'btn btn-primary'
+      = submit_tag 'Зберегти', :class => 'btn btn-primary'
       = link_to t('.cancel', :default => t("helpers.links.cancel")), category_question_answers_path(@category, @question), :class => 'btn btn-default'
