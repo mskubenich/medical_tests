@@ -24,8 +24,8 @@
         %td
           = link_to question.text, category_question_answers_path(@category, question)
           %br
-          - question.answers.shuffle.each do |answer|
-            %span.label{ class: "#{ answer.correct ? 'label-success' : 'label-primary'}"}
+          - question.answers.each do |answer|
+            %span.label.label-primary
               = answer.text
             &nbsp;
         %td=l question.created_at, format: :long

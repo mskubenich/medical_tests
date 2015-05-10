@@ -82,7 +82,7 @@ class CategoriesController < ApplicationController
     @category.save
     @question = @category.questions.where.not(id: @category.session).limit(1).order("RAND()").first
     if @question
-      render json: { question: @question, answers: @question.answers.select(:id, :text, :points).shuffle }
+      render json: { question: @question, answers: @question.answers.shuffle }
     else
       render json: { question: nil, answers: []}
     end
@@ -97,7 +97,7 @@ class CategoriesController < ApplicationController
     result = {}
 
     params[:answer].each do |answer_id, answer_value|
-      answer = question.answers.where(id: answer_id).try(:first)
+      answer = question.answers.select{|answer| answer.id == answer_id.to_i}.try(:first)
       result[answer_id] = answer.points.to_i > 0
       if answer && answer_value == true
         @category.points += answer.points.to_i
