@@ -55,17 +55,18 @@ class CategoriesController < ApplicationController
     # render text: 'ok'
     data[:categories].each do |category_hash|
       category = Category.where(title: category_hash[:title]).first_or_create
-      category_hash[:questions].each do |question_hash|
-        question = Question.create category_id: category.id, text: question_hash[:text]
-        question_hash[:answers].each_with_index do |answer_hash, index|
-          question.answers << Answer.new({
-                                             text: answer_hash[:text],
-                                             question_id: question.id,
-                                             points: answer_hash[:points].to_i,
-                                             id: index + 1
-                                         })
+      ActiveRecord::Base.transaction do
+        category_hash[:questions].each do |question_hash|
+          answers = []
+          question_hash[:answers].each_with_index do |answer_hash, index|
+            answers << Answer.new({
+                                               text: answer_hash[:text],
+                                               points: answer_hash[:points].to_i,
+                                               id: index + 1
+                                           })
+          end
+          question = Question.create category_id: category.id, text: question_hash[:text], answers: answers
         end
-        question.save!
       end
     end
 
