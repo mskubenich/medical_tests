@@ -1,5 +1,3 @@
-ruby '2.2.1'
-
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.5'
@@ -14,10 +12,11 @@ gem 'cancan'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'bootstrap-sass'
 gem 'bootstrap-sass-extras'
+gem 'autoprefixer-rails'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'cancancan'
 gem 'angularjs-rails'
-gem 'mysql2'
+gem 'pg'
 group :development do
   gem 'sqlite3'
 end
@@ -48,9 +47,4 @@ group :test do
   gem 'timecop'
   gem 'webmock',            :require => nil
   gem 'minitest-matchers'
-end
-
-group :production do
-  gem 'pg', '0.15.1'
-  gem 'rails_12factor', '0.0.2'
 end

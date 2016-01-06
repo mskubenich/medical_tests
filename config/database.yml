@@ -5,11 +5,12 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   pool: 5
   timeout: 5000
-  username: root
-  password: derevo
+  encoding: utf-8
+  user_name: postgres
+  password: postgres
 
 development:
   <<: *default
@@ -24,4 +25,4 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: medical_tests_db

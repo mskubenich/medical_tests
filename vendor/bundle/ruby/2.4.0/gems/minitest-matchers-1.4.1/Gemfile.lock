@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    minitest-matchers (1.4.1)
+      minitest (~> 5.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.0.6)
+    rake (10.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest-matchers!
+  rake

@@ -87,7 +87,7 @@ class CategoriesController < ApplicationController
   def next_question
     @category.generate_state
     @category.save
-    @question = @category.questions.where.not(id: @category.session).limit(1).order("RAND()").first
+    @question = @category.questions.where.not(id: @category.session).limit(1).order("random()").first
     if @question
       render json: { question: @question, answers: @question.answers.shuffle }
     else
